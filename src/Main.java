@@ -8,7 +8,7 @@ public class Main {
 
         manager.createTask(dog);
         manager.createTask(attribute);
-/*        manager.getAllTasks();*/
+
 
         Epic job = new Epic("Устроиться на работу", "Отправить резюме в 2 компании");
         Subtask interview1 = new Subtask("Пройти собеседование в первой компании", "Поехать по "
@@ -27,8 +27,7 @@ public class Main {
 
         manager.createEpic(vacation);
         manager.createSubtask(suitcase);
-/*        manager.getAllEpic();
-        manager.getAllSubtasks();*/
+
 
         manager.updateTask(dog);
         manager.updateSubtask(suitcase);

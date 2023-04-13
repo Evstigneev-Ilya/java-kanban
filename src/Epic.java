@@ -6,7 +6,31 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    ArrayList<Subtask> epicList = new ArrayList<>();
+    private ArrayList<Subtask> epicList = new ArrayList<>();
+
+    public void addItemList(Subtask subtask){
+        epicList.add(subtask);
+    }
+
+    public void setEpicList(ArrayList<Subtask> epicList) {
+        this.epicList = epicList;
+    }
+
+    public void clearEpicList(){
+        epicList.clear();
+    }
+
+    public ArrayList<Subtask> getEpicList(){
+        return epicList;
+    }
+
+    public void deleteItemList(Subtask subtask){
+        if (epicList.contains(subtask)){
+            epicList.remove(subtask);
+        }
+    }
+
+
 
     public void updateEpicStatus() {
         int i = 0;
