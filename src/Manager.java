@@ -12,18 +12,15 @@ public class Manager {
 
 
     public List<Task> getAllTasks() {
-        List<Task> allTask = new ArrayList<>(task.values());
-        return allTask;
+        return (List<Task>) task.values();
     }
 
     public List<Epic> getAllEpic() {
-        List<Epic> allEpic = new ArrayList<>(epic.values());
-        return allEpic;
+        return (List<Epic>) epic.values();
     }
 
     public List<Subtask> getAllSubtasks() {
-        List<Subtask> allSubtask = new ArrayList<>(subtask.values());
-        return allSubtask;
+        return (List<Subtask>) subtask.values();
     }
 
     public void deleteAllTasks() {
@@ -143,7 +140,11 @@ public class Manager {
 
     public List<Subtask> getListOfAllSubtasks(int id) {
 
-        return epic.getOrDefault(id, null).getEpicList();
+        if (epic.containsKey(id)) {
+            return epic.get(id).getEpicList();
+        } else {
+            return new ArrayList<>();
+        }
 
     }
 
