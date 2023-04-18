@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,18 +10,16 @@ public class Manager {
     private HashMap<Integer, Epic> epic = new HashMap<>();
     private HashMap<Integer, Subtask> subtask = new HashMap<>();
 
-
-
-    public List<Task> getAllTasks() {
-        return (List<Task>) task.values();
+    public Collection<Task> getAllTasks() {
+        return task.values(); // без явного приведения IDEA подсказала сделать так, но Collection мы еще не проходили
     }
 
-    public List<Epic> getAllEpic() {
-        return (List<Epic>) epic.values();
+    public Collection<Epic> getAllEpic() {
+        return epic.values();
     }
 
-    public List<Subtask> getAllSubtasks() {
-        return (List<Subtask>) subtask.values();
+    public Collection<Subtask> getAllSubtasks() {
+        return subtask.values();
     }
 
     public void deleteAllTasks() {
@@ -32,9 +31,9 @@ public class Manager {
         epic.clear();
     }
 
-    public void deleteAllSubtask(){
+    public void deleteAllSubtask() {
         subtask.clear();
-        for(int key : epic.keySet()){
+        for (int key : epic.keySet()) {
             epic.get(key).clearEpicList();
         }
     }
@@ -47,7 +46,7 @@ public class Manager {
         return epic.getOrDefault(id, null);
     }
 
-    public Subtask getSubTaskById(int id){
+    public Subtask getSubTaskById(int id) {
         return subtask.getOrDefault(id, null);
     }
 
@@ -87,7 +86,6 @@ public class Manager {
             tasks.setStatus("DONE");
             task.put(tasks.getId(), tasks);
         }
-
     }
 
     public void updateEpic(Epic epics) {
@@ -125,16 +123,13 @@ public class Manager {
 
     public void deleteByIDSubtask(int id) {
         if (subtask.containsKey(id)) {
-            subtask.remove(id);
-        }
-        for (int epics : epic.keySet()) {
-            ArrayList<Subtask> sub = epic.get(epics).getEpicList();
-            for (Subtask s : sub) {
-                if (s.getId() == id) {
-                    sub.remove(s);
-                    epic.get(epics).setEpicList(sub);
-                }
+            int epicId = subtask.get(id).getEpicId();
+            if (epic.containsKey(epicId)) {
+                ArrayList<Subtask> arrayList = epic.get(epicId).getEpicList();
+                arrayList.remove(subtask.get(id));
+                epic.get(epicId).setEpicList(arrayList);
             }
+            subtask.remove(id);
         }
     }
 
@@ -145,8 +140,5 @@ public class Manager {
         } else {
             return new ArrayList<>();
         }
-
     }
-
-
 }

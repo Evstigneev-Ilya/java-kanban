@@ -30,8 +30,6 @@ public class Epic extends Task {
         }
     }
 
-
-
     public void updateEpicStatus() {
         int i = 0;
         for (Subtask sub : epicList) {
@@ -55,5 +53,4 @@ public class Epic extends Task {
                 ", status='" + getStatus() + '\'' +
                 '}';
     }
-
 }

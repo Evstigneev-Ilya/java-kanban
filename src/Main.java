@@ -9,7 +9,6 @@ public class Main {
         manager.createTask(dog);
         manager.createTask(attribute);
 
-
         Epic job = new Epic("Устроиться на работу", "Отправить резюме в 2 компании");
         Subtask interview1 = new Subtask("Пройти собеседование в первой компании", "Поехать по "
                 + "указанному адресу и подробнее ознакомится с вакансией", 3);
@@ -20,15 +19,12 @@ public class Main {
         manager.createSubtask(interview1);
         manager.createSubtask(interview2);
 
-
         Epic vacation = new Epic("Поехать в отпуск", "Подготовить все самое необходимое к поездке");
         Subtask suitcase = new Subtask("Собрать чемодан", "Не забыть взять нового питомца с собой:)",
                 6);
 
         manager.createEpic(vacation);
         manager.createSubtask(suitcase);
-
-
         manager.updateTask(dog);
         manager.updateSubtask(suitcase);
         manager.deleteByIDSubtask(4);
