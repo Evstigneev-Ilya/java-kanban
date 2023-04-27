@@ -33,12 +33,12 @@ public class Epic extends Task {
     public void updateEpicStatus() {
         int i = 0;
         for (Subtask sub : epicList) {
-            if (sub.getStatus() == "IN_PROGRESS") {
-                setStatus("IN_PROGRESS");
-            } else if (sub.getStatus() == "DONE") {
+            if (sub.getStatus() == Status.IN_PROGRESS) {
+                setStatus(Status.IN_PROGRESS);
+            } else if (sub.getStatus() == Status.DONE) {
                 i = i + 1;
                 if (epicList.size() == i) {
-                    setStatus("DONE");
+                    setStatus(Status.DONE);
                 }
             }
         }
