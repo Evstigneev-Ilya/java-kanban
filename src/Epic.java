@@ -6,38 +6,38 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    private ArrayList<Subtask> epicList = new ArrayList<>();
+    private ArrayList<Subtask> subtaskList = new ArrayList<>();
 
     public void addItemList(Subtask subtask){
-        epicList.add(subtask);
+        subtaskList.add(subtask);
     }
 
-    public void setEpicList(ArrayList<Subtask> epicList) {
-        this.epicList = epicList;
+    public void setSubtaskList(ArrayList<Subtask> subtaskList) {
+        this.subtaskList = subtaskList;
     }
 
     public void clearEpicList(){
-        epicList.clear();
+        subtaskList.clear();
     }
 
-    public ArrayList<Subtask> getEpicList(){
-        return epicList;
+    public ArrayList<Subtask> getSubtaskList(){
+        return subtaskList;
     }
 
     public void deleteItemList(Subtask subtask){
-        if (epicList.contains(subtask)){
-            epicList.remove(subtask);
+        if (subtaskList.contains(subtask)){
+            subtaskList.remove(subtask);
         }
     }
 
     public void updateEpicStatus() {
         int i = 0;
-        for (Subtask sub : epicList) {
+        for (Subtask sub : subtaskList) {
             if (sub.getStatus() == Status.IN_PROGRESS) {
                 setStatus(Status.IN_PROGRESS);
             } else if (sub.getStatus() == Status.DONE) {
                 i = i + 1;
-                if (epicList.size() == i) {
+                if (subtaskList.size() == i) {
                     setStatus(Status.DONE);
                 }
             }

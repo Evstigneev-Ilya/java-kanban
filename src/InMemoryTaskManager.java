@@ -161,9 +161,9 @@ public class InMemoryTaskManager implements TaskManager{
         if (subtask.containsKey(id)) {
             int epicId = subtask.get(id).getEpicId();
             if (epic.containsKey(epicId)) {
-                ArrayList<Subtask> arrayList = epic.get(epicId).getEpicList();
+                ArrayList<Subtask> arrayList = epic.get(epicId).getSubtaskList();
                 arrayList.remove(subtask.get(id));
-                epic.get(epicId).setEpicList(arrayList);
+                epic.get(epicId).setSubtaskList(arrayList);
             }
             subtask.remove(id);
         }
@@ -173,7 +173,7 @@ public class InMemoryTaskManager implements TaskManager{
     public List<Subtask> getListOfAllSubtasks(int id) {
 
         if (epic.containsKey(id)) {
-            return epic.get(id).getEpicList();
+            return epic.get(id).getSubtaskList();
         } else {
             return new ArrayList<>();
         }
