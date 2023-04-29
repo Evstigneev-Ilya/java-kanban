@@ -1,8 +1,12 @@
+package Manager;
+
+import Tasks.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private List <Task> historyTask = new ArrayList<>(10);
+    private List <Task> historyTask = new ArrayList<>(10);//Мы проходили только Hashmap и ArrayList
 
     @Override
     public void add(Task task) {

@@ -1,3 +1,8 @@
+package Tasks;
+
+
+import Manager.*;
+
 public class Task {
     private String name;
     private String description;
