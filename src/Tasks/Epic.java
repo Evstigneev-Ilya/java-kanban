@@ -1,5 +1,7 @@
 package Tasks;
 
+import Manager.Status;
+
 import Tasks.Subtask;
 import Tasks.Task;
 

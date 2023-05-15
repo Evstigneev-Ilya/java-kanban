@@ -153,13 +153,16 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteByIDTask(int id) {
         if (task.containsKey(id)) {
             task.remove(id);
+            inMemoryHistoryManager.remove(id);
         }
+
     }
 
     @Override
     public void deleteByIDEpic(int id) {
         if (epic.containsKey(id)) {
             epic.remove(id);
+            inMemoryHistoryManager.remove(id);
         }
     }
 
@@ -173,6 +176,7 @@ public class InMemoryTaskManager implements TaskManager {
                 epic.get(epicId).setSubtaskList(arrayList);
             }
             subtask.remove(id);
+            inMemoryHistoryManager.remove(id);
         }
     }
 
