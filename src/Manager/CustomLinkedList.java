@@ -5,6 +5,7 @@ package Manager;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomLinkedList<T> {
     private Node<T> head;
@@ -51,12 +52,8 @@ public class CustomLinkedList<T> {
     }
 
     public void deleteFirst(){
-        head.next.prev=null;
+        head=head.next;
+        head.prev=null;
     }
-
-
-
-
-
 
 }
