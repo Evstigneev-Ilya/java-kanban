@@ -5,14 +5,25 @@ import Manager.*;
 
 public class Task {
     private String name;
+    protected TypeTask typeTask;
     private String description;
     private int id;
     private Status status;
 
+
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        status = Status.NEW;
+        this.status = Status.NEW;
+        this.typeTask = TypeTask.TASK;
+    }
+
+    public TypeTask getTypeTask() {
+        return typeTask;
+    }
+
+    public void setTypeTask(TypeTask typeTask) {
+        this.typeTask = typeTask;
     }
 
     public String getName() {
@@ -53,7 +64,7 @@ public class Task {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

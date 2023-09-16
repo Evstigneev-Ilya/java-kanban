@@ -1,0 +1,8 @@
+id,type,name,status,description,epic
+1,TASK,first task,NEW,first task,eat breAKfast,
+2,TASK,second Task,NEW,second Task,go to work,
+3,EPIC,first epic,NEW,first epic,workWork,
+4,SUBTASK,FirstSubtask,NEW,FirstSubtask,many work,3,
+5,SUBTASK,SecondSubtask,NEW,SecondSubtask,ForepicID3,3,
+
+1,3

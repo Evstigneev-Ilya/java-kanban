@@ -5,9 +5,9 @@ import Tasks.*;
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private Node<Task> head;
-    private Node<Task> tail;
-    private Map<Integer, Node> nodeMap = new HashMap<>();
+    protected Node<Task> head;
+    protected Node<Task> tail;
+    protected Map<Integer, Node> nodeMap = new HashMap<>();
 
     @Override
     public void add(Task task) {
@@ -24,7 +24,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public List<Task> getHistory() {
         List<Task> taskList = new ArrayList<>();
-        System.out.println("История ваших задач: ");
         for (Node<Task> taskNode : nodeMap.values()) {
             taskList.add(taskNode.data);
         }

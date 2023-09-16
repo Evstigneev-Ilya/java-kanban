@@ -2,6 +2,7 @@ package Tasks;
 
 import Manager.Status;
 
+import Manager.TypeTask;
 import Tasks.Subtask;
 import Tasks.Task;
 
@@ -9,8 +10,11 @@ import java.util.ArrayList;
 
 public class Epic extends Task {
 
+
     public Epic(String name, String description) {
         super(name, description);
+        this.typeTask = TypeTask.EPIC;
+
     }
 
     private ArrayList<Subtask> subtaskList = new ArrayList<>();
@@ -60,4 +64,5 @@ public class Epic extends Task {
                 ", status='" + getStatus() + '\'' +
                 '}';
     }
+
 }
