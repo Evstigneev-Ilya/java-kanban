@@ -18,7 +18,13 @@ public class CommaSeparated {
         StringBuilder taskToString = new StringBuilder();
         taskToString.append(task.getId() + DELIMETR).append(task.getTypeTask() + DELIMETR).
                 append(task.getName() + DELIMETR).append(task.getStatus() + DELIMETR).
-                append(task.getName() + DELIMETR).append(task.getDescription() + DELIMETR);
+                append(task.getDescription() + DELIMETR);
+        if(task.getStartTime() != null){
+            taskToString.append(task.getStartTime().format(task.formatter) + DELIMETR);
+        }else taskToString.append(" " + DELIMETR);
+        if(task.getDuration() != null){
+            taskToString.append(task.getDuration().toMinutes() + DELIMETR);
+        }else taskToString.append(" " + DELIMETR);
         if(task.getTypeTask() == TypeTask.SUBTASK){
             taskToString.append(((Subtask)task).getEpicId() + DELIMETR);
         }
@@ -35,7 +41,13 @@ public class CommaSeparated {
                 task = new Task(taskFromString[2], taskFromString[4]);
                 task.setId(Integer.parseInt(taskFromString[0]));
                 task.setStatus(Status.valueOf(taskFromString[3]));
-
+                System.out.println(taskFromString[5]);
+                if(!taskFromString[5].isBlank()){
+                    task.setStartTime(taskFromString[5]);
+                }
+                if(!taskFromString[6].isBlank()){
+                    task.setDuration(Integer.parseInt(taskFromString[6]));
+                }
                 break;
             case "EPIC":
                 task = new Epic(taskFromString[2], taskFromString[4]);
@@ -43,9 +55,13 @@ public class CommaSeparated {
                 task.setStatus(Status.valueOf(taskFromString[3]));
                 break;
             case "SUBTASK":
-                task = new Subtask(taskFromString[2], taskFromString[4], Integer.parseInt(taskFromString[6]));
+                task = new Subtask(taskFromString[2], taskFromString[4], Integer.parseInt(taskFromString[7]));
                 task.setId(Integer.parseInt(taskFromString[0]));
                 task.setStatus(Status.valueOf(taskFromString[3]));
+                if(!taskFromString[5].isBlank()){
+                task.setStartTime(taskFromString[5]);}
+                if(!taskFromString[6].isBlank()){
+                task.setDuration(Integer.parseInt(taskFromString[6]));}
                 break;
             default:
                 throw new ManagerTaskFromString("Не получилось перевести задачу!");
@@ -74,7 +90,7 @@ public class CommaSeparated {
     }
 
     public String hendler(){
-        return "id,type,name,status,description,epic";
+        return "id,type,name,status,description,startTime,duration,epic";
     }
 
 

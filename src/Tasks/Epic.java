@@ -6,9 +6,14 @@ import Manager.TypeTask;
 import Tasks.Subtask;
 import Tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Epic extends Task {
+
+    LocalDateTime endTime;
 
 
     public Epic(String name, String description) {
@@ -20,7 +25,15 @@ public class Epic extends Task {
     private ArrayList<Subtask> subtaskList = new ArrayList<>();
 
     public void addItemList(Subtask subtask){
+
         subtaskList.add(subtask);
+        if(subtask.getDuration() != null){
+            if(duration == null){
+                duration = subtask.getDuration();
+            }else {
+                duration = duration.plus(subtask.getDuration());
+            }
+        }
     }
 
     public void setSubtaskList(ArrayList<Subtask> subtaskList) {
@@ -41,6 +54,35 @@ public class Epic extends Task {
         }
     }
 
+    public void createStartTimeEpic(){
+        if(subtaskList.isEmpty()){
+           return;
+        }
+        startTime = subtaskList.get(0).getStartTime();
+        for (Subtask subtask: subtaskList){
+            if(subtask.getStartTime().isBefore(startTime)){
+                startTime = subtask.getStartTime();
+            }
+        }
+    }
+
+    public void createEndTime(){
+        if(subtaskList.isEmpty()){
+            return;
+        }
+        endTime = subtaskList.get(0).getEndTime();
+        for (Subtask subtask: subtaskList){
+            if(subtask.getEndTime().isAfter(endTime)){
+                endTime = subtask.getEndTime();
+            }
+        }
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
     public void updateEpicStatus() {
         int i = 0;
         for (Subtask sub : subtaskList) {
@@ -50,9 +92,23 @@ public class Epic extends Task {
                 i = i + 1;
                 if (subtaskList.size() == i) {
                     setStatus(Status.DONE);
-                }
+                }else setStatus(Status.IN_PROGRESS);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Epic epic = (Epic) o;
+        return Objects.equals(subtaskList, epic.subtaskList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), subtaskList);
     }
 
     @Override
@@ -64,5 +120,6 @@ public class Epic extends Task {
                 ", status='" + getStatus() + '\'' +
                 '}';
     }
+
 
 }

@@ -6,14 +6,21 @@ import Tasks.Task;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
+
+
 
     public Collection<Task> getAllTasks();
 
     public Collection<Epic> getAllEpic();
 
     public Collection<Subtask> getAllSubtasks();
+
+
+
+
 
     public void deleteAllTasks();
 
@@ -27,13 +34,14 @@ public interface TaskManager {
 
     public Subtask getSubTaskById(int id);
 
-    public void createTask(Task tasks);
+    public void saveTask(Task tasks);
 
-    public void createEpic(Epic epics);
+    public void saveEpic(Epic epics);
 
-    public void createSubtask(Subtask subtasks);
+    public void saveSubtask(Subtask subtasks, Epic epics);
 
     public void updateTask(Task tasks);
+    TreeSet<Task> getPrioritizedTasks();
 
     public void updateEpic(Epic epics);
 

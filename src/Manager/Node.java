@@ -11,6 +11,10 @@ public class Node<E> {
 
     }
 
+    public E getData() {
+        return data;
+    }
+
     @Override
     public String toString() {
         return "Node{" +
