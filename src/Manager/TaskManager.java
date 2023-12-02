@@ -3,7 +3,6 @@ package Manager;
 import Tasks.Epic;
 import Tasks.Subtask;
 import Tasks.Task;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -11,48 +10,43 @@ import java.util.TreeSet;
 public interface TaskManager {
 
 
+    Collection<Task> getAllTasks();
 
-    public Collection<Task> getAllTasks();
+    Collection<Epic> getAllEpic();
 
-    public Collection<Epic> getAllEpic();
+    Collection<Subtask> getAllSubtasks();
 
-    public Collection<Subtask> getAllSubtasks();
+    void deleteAllTasks();
 
+    void deleteAllEpic();
 
+    void deleteAllSubtask();
 
+    Task getTaskByID(int id);
 
+    Epic getEpicByID(int id);
 
-    public void deleteAllTasks();
+    Subtask getSubTaskById(int id);
 
-    public void deleteAllEpic();
+    void saveTask(Task tasks);
 
-    public void deleteAllSubtask();
+    void saveEpic(Epic epics);
 
-    public Task getTaskByID(int id);
+    void saveSubtask(Subtask subtasks, Epic epics);
 
-    public Epic getEpicByID(int id);
+    void updateTask(Task tasks);
 
-    public Subtask getSubTaskById(int id);
-
-    public void saveTask(Task tasks);
-
-    public void saveEpic(Epic epics);
-
-    public void saveSubtask(Subtask subtasks, Epic epics);
-
-    public void updateTask(Task tasks);
     TreeSet<Task> getPrioritizedTasks();
 
-    public void updateEpic(Epic epics);
+    void updateEpic(Epic epics);
 
-    public void updateSubtask(Subtask subtasks);
+    void updateSubtask(Subtask subtasks);
 
-    public void deleteByIDTask(int id);
+    void deleteByIDTask(int id);
 
-    public void deleteByIDEpic(int id);
+    void deleteByIDEpic(int id);
 
-    public void deleteByIDSubtask(int id);
+    void deleteByIDSubtask(int id);
 
-    public List<Subtask> getListOfAllSubtasks(int id);
-
+    List<Subtask> getListOfAllSubtasks(int id);
 }

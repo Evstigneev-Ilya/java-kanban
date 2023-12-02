@@ -5,12 +5,10 @@ import Tasks.Subtask;
 import Tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager>{
+class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         taskManager = Managers.getDefaultTaskManager();
         Task task1 = new Task("Task1", "DiscTask1");
         Task task2 = new Task("Task2", "DiscTask2");
@@ -25,13 +23,8 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager>{
         taskManager.saveTask(task1);
         taskManager.saveTask(task2);
         taskManager.saveEpic(epic);
-        taskManager.saveSubtask(subtask1,epic);
-        taskManager.saveSubtask(subtask2,epic);
-        taskManager.saveSubtask(subtask3,epic);
-
-
-        //init();
-
+        taskManager.saveSubtask(subtask1, epic);
+        taskManager.saveSubtask(subtask2, epic);
+        taskManager.saveSubtask(subtask3, epic);
     }
-
 }

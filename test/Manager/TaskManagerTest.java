@@ -10,13 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskManagerTest<T extends  TaskManager> {
+public class TaskManagerTest<T extends TaskManager> {
 
     T taskManager;
-
-
-
-
 
     @Test
     void getAllTasksEmpty() {
@@ -25,11 +21,9 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getAllTasks(){
+    void getAllTasks() {
         assertEquals(2, taskManager.getAllTasks().size(), "не совпадает размер тасков");
     }
-
-
 
     @Test
     void getAllEpicEmpty() {
@@ -38,7 +32,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getAllEpic(){
+    void getAllEpic() {
         assertEquals(1, taskManager.getAllEpic().size(), "Не совпадает размер Эпиков");
     }
 
@@ -49,7 +43,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getAllSubtask(){
+    void getAllSubtask() {
         assertEquals(3, taskManager.getAllSubtasks().size(), "Не совпадает размер подзадач");
     }
 
@@ -57,7 +51,6 @@ public class TaskManagerTest<T extends  TaskManager> {
     void deleteAllTasks() {
         taskManager.deleteAllEpic();
         assertTrue(taskManager.getAllEpic().isEmpty(), "Удалились не все Задачи!");
-
     }
 
     @Test
@@ -80,7 +73,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getTaskByIDisNull(){
+    void getTaskByIDisNull() {
         assertNull(taskManager.getTaskByID(5));
     }
 
@@ -93,7 +86,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getEpicByIdNull(){
+    void getEpicByIdNull() {
         assertNull(taskManager.getEpicByID(6));
     }
 
@@ -102,18 +95,18 @@ public class TaskManagerTest<T extends  TaskManager> {
         Subtask subtask = taskManager.getSubTaskById(4);
         assertNotNull(subtask);
         assertEquals(TypeTask.SUBTASK, subtask.getTypeTask());
-        assertEquals(4, subtask.getId(),"айди не совпали");
+        assertEquals(4, subtask.getId(), "айди не совпали");
     }
 
     @Test
-    void  getSubtaskByIdNull(){
+    void getSubtaskByIdNull() {
         assertNull(taskManager.getTaskByID(10));
     }
 
     @Test
     void saveTask() {
         taskManager.saveTask(new Task("Task", "task"));
-        assertEquals("Task",taskManager.getTaskByID(7).getName()," Не создался Таск");
+        assertEquals("Task", taskManager.getTaskByID(7).getName(), " Не создался Таск");
     }
 
     @Test
@@ -125,8 +118,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     @Test
     void createSubtask() {
         taskManager.saveSubtask(new Subtask("Subtask", "subtask"), taskManager.getEpicByID(3));
-        assertEquals("Subtask", taskManager.getSubTaskById(7).getName(),"Не совпали подзадачи");
-
+        assertEquals("Subtask", taskManager.getSubTaskById(7).getName(), "Не совпали подзадачи");
     }
 
     @Test
@@ -138,13 +130,11 @@ public class TaskManagerTest<T extends  TaskManager> {
 
     @Test
     void updateEpic() {
-
-        for(Subtask subtask: taskManager.getEpicByID(3).getSubtaskList()){
+        for (Subtask subtask : taskManager.getEpicByID(3).getSubtaskList()) {
             subtask.setStatus(Status.DONE);
         }
         taskManager.getEpicByID(3).updateEpicStatus();
         assertEquals(Status.DONE, taskManager.getEpicByID(3).getStatus(), "Статусы эпиков не совпали");
-
     }
 
     @Test
@@ -180,7 +170,7 @@ public class TaskManagerTest<T extends  TaskManager> {
     }
 
     @Test
-    void getPrioritizedTasks(){
+    void getPrioritizedTasks() {
         assertEquals(3, taskManager.getPrioritizedTasks().size());
     }
 }

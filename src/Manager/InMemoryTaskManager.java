@@ -1,25 +1,17 @@
 package Manager;
 
 
+import ExceptionByTask.TaskValidationException;
 import Tasks.Epic;
 import Tasks.Subtask;
 import Tasks.Task;
 
-import java.time.Period;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private int id = 1;
     protected InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
-
-
-
-
-    public HistoryManager getInMemoryHistoryManager() {
-        return inMemoryHistoryManager;
-    }
-
-
     protected HashMap<Integer, Task> task = new HashMap<>();
     protected HashMap<Integer, Epic> epic = new HashMap<>();
     protected HashMap<Integer, Subtask> subtask = new HashMap<>();
@@ -27,18 +19,33 @@ public class InMemoryTaskManager implements TaskManager {
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
             Comparator.nullsLast(Comparator.naturalOrder())));
 
+    public HistoryManager getInMemoryHistoryManager() {
+        return inMemoryHistoryManager;
+    }
+
     @Override
     public TreeSet<Task> getPrioritizedTasks() {
         return this.prioritizedTasks;
     }
 
+    public void validation(Task task){
+        LocalDateTime startDate = task.getStartTime();
+        LocalDateTime endDate = task.getEndTime();
 
-//    public boolean validation(Task task){
-//        boolean yes = true;
-//        for (Task task1: prioritizedTasks){
-//            if(task.getStartTime().)
-//        }
-//    }
+        Integer result = prioritizedTasks.stream().map(it -> {
+            if(startDate.isBefore(it.getEndTime())&&startDate.isAfter(it.getStartTime())){
+                return 1;
+            }
+            if(endDate.isBefore(it.getEndTime())&&endDate.isAfter(it.getStartTime())){
+                return 1;
+            }
+            return 0;
+        }).reduce(Integer::sum).orElse(0);
+
+        if(result > 0){
+            throw new TaskValidationException("Задача пересекается");
+        }
+    }
 
 
     @Override
@@ -55,7 +62,6 @@ public class InMemoryTaskManager implements TaskManager {
     public Collection<Subtask> getAllSubtasks() {
         return subtask.values();
     }
-
 
 
     @Override
@@ -110,6 +116,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         tasks.setId(id);
         task.put(id++, tasks);
+        validation(tasks);
         prioritizedTasks.add(tasks);
     }
 
@@ -132,14 +139,14 @@ public class InMemoryTaskManager implements TaskManager {
             subtasks.setEpicId(epicThis.getId());
             subtask.put(id++, subtasks);
             epicThis.addItemList(subtasks);
-            if(subtasks.getStartTime()!=null){
+            if (subtasks.getStartTime() != null) {
                 epicThis.createEndTime();
                 epicThis.createStartTimeEpic();
-                }
-            epic.put(epicThis.getId(),epicThis);
-            prioritizedTasks.add(subtasks);
             }
-         else
+            epic.put(epicThis.getId(), epicThis);
+            validation(subtasks);
+            prioritizedTasks.add(subtasks);
+        } else
             System.out.println("Эпика нет");
     }
 
@@ -183,7 +190,6 @@ public class InMemoryTaskManager implements TaskManager {
             task.remove(id);
             inMemoryHistoryManager.remove(id);
         }
-
     }
 
     @Override
@@ -217,5 +223,4 @@ public class InMemoryTaskManager implements TaskManager {
             return new ArrayList<>();
         }
     }
-
 }

@@ -10,11 +10,11 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-    public static FileBackedTasksManager getFileTaskManager(String nameFile){
+    public static FileBackedTasksManager getFileTaskManager(String nameFile) {
         Path path = Paths.get(nameFile);
-        if(Files.exists(path)){
+        if (Files.exists(path)) {
             return FileBackedTasksManager.loadFromFile(nameFile);
-        }else {
+        } else {
             return new FileBackedTasksManager(nameFile);
         }
     }

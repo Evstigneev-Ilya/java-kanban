@@ -6,18 +6,15 @@ import Tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>{
-
+class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         taskManager = new FileBackedTasksManager("test.txt");
         Task task1 = new Task("Task1", "DiscTask1");
         Task task2 = new Task("Task2", "DiscTask2");
@@ -28,20 +25,19 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         taskManager.saveTask(task1);
         taskManager.saveTask(task2);
         taskManager.saveEpic(epic);
-        taskManager.saveSubtask(subtask1,epic);
-        taskManager.saveSubtask(subtask2,epic);
-        taskManager.saveSubtask(subtask3,epic);
+        taskManager.saveSubtask(subtask1, epic);
+        taskManager.saveSubtask(subtask2, epic);
+        taskManager.saveSubtask(subtask3, epic);
     }
 
     @AfterEach
-    void deleteFile(){
+    void deleteFile() {
         File file = new File("test.txt");
         file.delete();
     }
 
-
     @Test
-    void saveEmptyFile(){
+    void saveEmptyFile() {
         taskManager.deleteAllTasks();
         taskManager.deleteAllEpic();
         taskManager.deleteAllSubtask();
@@ -56,7 +52,7 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
     }
 
     @Test
-    void saveFile(){
+    void saveFile() {
         taskManager.save();
         long count = 0;
         try {
@@ -68,7 +64,7 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
     }
 
     @Test
-    void loadEmptyFile(){
+    void loadEmptyFile() {
         taskManager.deleteAllTasks();
         taskManager.deleteAllEpic();
         taskManager.deleteAllSubtask();
@@ -78,26 +74,19 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
     }
 
     @Test
-    void loadFile(){
+    void loadFile() {
         taskManager.save();
         FileBackedTasksManager fileBackedTasksManagerLoadFile = FileBackedTasksManager.loadFromFile("test.txt");
-        assertEquals(taskManager.getTaskByID(1),fileBackedTasksManagerLoadFile.getTaskByID(1),
+        assertEquals(taskManager.getTaskByID(1), fileBackedTasksManagerLoadFile.getTaskByID(1),
                 "Не правильно загрузился файл");
-
     }
 
     @Test
-    void loadFileEmptySubsTask(){
+    void loadFileEmptySubsTask() {
         taskManager.deleteAllSubtask();
         taskManager.save();
         FileBackedTasksManager fileBackedTasksManagerLoadFile = FileBackedTasksManager.loadFromFile("test.txt");
         assertNull(fileBackedTasksManagerLoadFile.getSubTaskById(4));
         assertEquals(taskManager.getListOfAllSubtasks(2), fileBackedTasksManagerLoadFile.getListOfAllSubtasks(2));
     }
-
-
-
-
-
-
 }
