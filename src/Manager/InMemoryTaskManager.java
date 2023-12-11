@@ -11,13 +11,17 @@ import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private int id = 1;
-    protected InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+    protected InMemoryHistoryManager inMemoryHistoryManager;
     protected HashMap<Integer, Task> task = new HashMap<>();
     protected HashMap<Integer, Epic> epic = new HashMap<>();
     protected HashMap<Integer, Subtask> subtask = new HashMap<>();
     private Comparator<Task> nullLastComparator = Comparator.comparing(Task::getStartTime);
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
             Comparator.nullsLast(Comparator.naturalOrder())));
+
+    public InMemoryTaskManager(){
+        inMemoryHistoryManager = new InMemoryHistoryManager();
+    }
 
     public HistoryManager getInMemoryHistoryManager() {
         return inMemoryHistoryManager;
@@ -127,6 +131,11 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epics.setId(id);
         epic.put(id++, epics);
+    }
+
+    @Override
+    public List<Task> getHistory() {
+        return inMemoryHistoryManager.getHistory();
     }
 
     @Override

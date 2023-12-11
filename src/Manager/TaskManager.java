@@ -31,6 +31,7 @@ public interface TaskManager {
     void saveTask(Task tasks);
 
     void saveEpic(Epic epics);
+    List<Task> getHistory();
 
     void saveSubtask(Subtask subtasks, Epic epics);
 
