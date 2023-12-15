@@ -224,6 +224,27 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public boolean existTask(Task tasked) {
+        int id = tasked.getId();
+        for(Task t: task.values()){
+            if(t.getId() == id){
+                return true;
+            }
+        }
+        for(Epic e: epic.values()){
+            if(e.getId() == id){
+                return true;
+            }
+        }
+        for(Subtask s: subtask.values()){
+            if(s.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public List<Subtask> getListOfAllSubtasks(int id) {
 
         if (epic.containsKey(id)) {

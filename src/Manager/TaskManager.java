@@ -50,4 +50,6 @@ public interface TaskManager {
     void deleteByIDSubtask(int id);
 
     List<Subtask> getListOfAllSubtasks(int id);
+
+    boolean existTask(Task tasked);
 }

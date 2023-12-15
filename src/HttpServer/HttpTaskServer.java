@@ -2,6 +2,9 @@ package HttpServer;
 
 import Manager.Managers;
 import Manager.TaskManager;
+import Tasks.Epic;
+import Tasks.Subtask;
+import Tasks.Task;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
@@ -101,8 +104,44 @@ public class HttpTaskServer {
                     }
                 }
                 case "POST":{
-
-
+                    String respone = readText(httpExchange);
+                    Task task = gson.fromJson(respone, Task.class);
+                    if(Pattern.matches("^task/$", path)){
+                        if(!taskManager.existTask(task)){
+                            taskManager.saveTask(task);
+                            System.out.println("Задача сохранена");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }else {
+                            taskManager.updateTask(task);
+                            System.out.println("Задача обновлена");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }
+                    } else if (Pattern.matches("^epic/$", path)) {
+                        if(!taskManager.existTask(task)){
+                            taskManager.saveEpic((Epic) task);
+                            System.out.println("Epic сохранен");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }else {
+                            taskManager.updateEpic((Epic) task);
+                            System.out.println("Epic обновлен");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }
+                    } else if (Pattern.matches("^subtask/$", path)) {
+                        if(!taskManager.existTask(task)){
+                            Subtask sub = (Subtask) task;
+                            Epic epic = taskManager.getEpicByID(sub.getEpicId());
+                            taskManager.saveSubtask(sub, epic);
+                            System.out.println("Subtask сохранен");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }else {
+                            taskManager.updateSubtask((Subtask) task);
+                            System.out.println("Subtask обновлен");
+                            httpExchange.sendResponseHeaders(200,0);
+                        }
+                    }else{
+                        System.out.println("Введен неправильный POST");
+                        httpExchange.sendResponseHeaders(405, 0);
+                    }
                 }
                 case "DELETE":{
                     if(Pattern.matches("^task/$", path)){

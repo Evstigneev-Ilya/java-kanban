@@ -1,5 +1,6 @@
 package Manager;
 
+import HttpServer.HttpTaskManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.*;
@@ -13,7 +14,7 @@ public class Managers {
 
 
     public static InMemoryTaskManager getDefaultTaskManager() {
-        return new InMemoryTaskManager();
+        return new HttpTaskManager(8080);
     }
 
     public static FileBackedTasksManager getFileTaskManager(String nameFile) {
@@ -25,9 +26,10 @@ public class Managers {
         }
     }
 
+
     public static Gson getGson(){
          GsonBuilder gsonBuilder = new GsonBuilder();
-//         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
+         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
          return gsonBuilder.create();
     }
 
